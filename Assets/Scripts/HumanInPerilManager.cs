@@ -33,7 +33,7 @@ public class HumanInPerilManager : MonoBehaviour
     {
         Health -= Time.fixedDeltaTime * decreasingAmount;
         HealthSlider.value = Mathf.Lerp(HealthSlider.value, Health, Time.deltaTime * 4);
-        if (HealthSlider.value == 0)
+        if (HealthSlider.value <= 0)
         {
             if (!played)
             {
@@ -49,7 +49,7 @@ public class HumanInPerilManager : MonoBehaviour
             playerController.gameObject.SetActive(false);
             pauseMenu.gameObject.SetActive(true);
         }
-        if (HealthSlider.value == 100)
+        if (HealthSlider.value >= 100)
         {
             timeText.text = string.Format("Time: {0:0.00}", Time.timeSinceLevelLoad.ToString());
             if (!played)
@@ -59,10 +59,10 @@ public class HumanInPerilManager : MonoBehaviour
                 played = true;
             }
             enemyManager.gameObject.SetActive(false);
-            Failed.gameObject.SetActive(false);
             medicineManager.gameObject.SetActive(false);
             playerController.gameObject.SetActive(false);
             pauseMenu.gameObject.SetActive(true);
+            Failed.gameObject.SetActive(false);
         }
     }
     public void EnemyCollide()
